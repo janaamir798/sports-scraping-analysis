@@ -1,0 +1,4 @@
+method,total_time_s,num_requests,bandwidth_kb,avg_latency_ms,rows_collected
+api,516.4,41,668.3,130.7,380
+bs4,0.57,1,1040.3,240.5,380
+selenium,39.62,60,1686.4,2004.0,380
