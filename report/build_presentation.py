@@ -81,7 +81,11 @@ def picture(slide, path, left, top, width=None, height=None):
 def screenshot(slide, name, label, left, top, width, height):
     path = SHOTS / name
     if path.exists():
-        picture(slide, path, left, top, height=height)
+        # Fit the screenshot inside the box (width x height) without changing its proportions
+        pic = picture(slide, path, left, top, height=height)
+        if pic.width > Inches(width):
+            ratio = Inches(width) / pic.width
+            pic.width, pic.height = Inches(width), int(pic.height * ratio)
     else:
         box = slide.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(left), Inches(top), Inches(width), Inches(height))
         box.fill.solid(); box.fill.fore_color.rgb = RGBColor(0xEE, 0xEE, 0xEE)

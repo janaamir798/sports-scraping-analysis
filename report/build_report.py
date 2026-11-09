@@ -300,15 +300,21 @@ H2("5.3 Live monitoring (screenshots)")
 screenshot("ss_api.png", "ss during the API run: a single HTTPS connection (python to TheSportsDB).")
 screenshot("ss_selenium.png", "ss during the Selenium run: many parallel connections from Chrome "
                               "(TCP and QUIC/UDP on port 443).")
-screenshot("nload_api.png", "nload during the API run: small, regular traffic peaks.")
-screenshot("nload_selenium.png", "nload during the Selenium run: a much bigger peak.")
-screenshot("iftop_api.png", "iftop during the API run: only one remote host.")
-screenshot("iftop_selenium.png", "iftop during the Selenium run: many remote hosts at the same time.")
-screenshot("tcpdump.png", "tcpdump: the TCP three-way handshake (SYN, SYN-ACK, ACK) and then encrypted "
-                          "TLS traffic.")
-screenshot("wireshark_conversations.png", "Wireshark - Statistics > Conversations (Selenium capture).")
-screenshot("wireshark_protocols.png", "Wireshark - Statistics > Protocol Hierarchy: almost all data is "
-                                      "TLS (encrypted HTTPS).")
+screenshot("nload_api.png", "nload during the API run: so little traffic that the graph stays almost "
+                             "empty (average 3.45 kbit/s incoming).")
+screenshot("nload_selenium.png", "nload during the Selenium run: a big peak (max 20 Mbit/s, 8.18 MB in total).")
+screenshot("iftop_api.png", "iftop during the API run: only one web server (172.67.72.25 = TheSportsDB); "
+                            "the other lines are Ubuntu's time synchronization (NTP).")
+screenshot("iftop_selenium.png", "iftop during the Selenium run: GitHub (Selenium Manager), TheSportsDB and "
+                                 "many Google servers (1e100.net) at the same time.")
+screenshot("tcpdump.png", "tcpdump (BeautifulSoup run): the TCP three-way handshake ([S], [S.], [.]), "
+                          "then the TLS ClientHello and the encrypted answer.")
+screenshot("wireshark_conversations_api.png", "Wireshark - Conversations (API capture): only one "
+                                              "conversation, 381 packets in 516 s.")
+screenshot("wireshark_conversations.png", "Wireshark - Conversations (Selenium capture): 12 conversations "
+                                          "in 37 s; the biggest (6 MB) is GitHub.")
+screenshot("wireshark_protocols.png", "Wireshark - Protocol Hierarchy (Selenium capture): 92% of the bytes "
+                                      "are TLS (encrypted HTTPS).")
 
 # =================================================================
 # 6. Security
@@ -325,7 +331,8 @@ table([["", "Rule active (443 blocked)", "Rule removed"],
        ["Time", "44.5 s (5 attempts x 2 rounds, waiting between retries)", "4.5 s"],
        ["Did the program crash?", "No: errors are caught, it retries and continues", "-"]],
       [3.5 * cm, 7.5 * cm, 5 * cm])
-screenshot("ufw.png", "ufw status with the REJECT OUT rule, and the failed API run.")
+screenshot("ufw.png", "ufw: the REJECT OUT rule (top), the failed API run (middle), and the working run "
+                      "after removing the rule (bottom).")
 
 H2("6.2 Rate limiting")
 P("Rate limiting protects the server, and also protects us: when we went too fast, the server "
@@ -440,8 +447,9 @@ doc = SimpleDocTemplate(str(OUT), pagesize=A4, leftMargin=2 * cm, rightMargin=2 
                         author="Jana Alamir, Rim Zoghbi")
 doc.build(story, onFirstPage=page_number, onLaterPages=page_number)
 missing = [p for p in ["ss_api.png", "ss_selenium.png", "nload_api.png", "nload_selenium.png",
-                       "iftop_api.png", "iftop_selenium.png", "tcpdump.png", "wireshark_conversations.png",
-                       "wireshark_protocols.png", "ufw.png"] if not (SHOTS / p).exists()]
+                       "iftop_api.png", "iftop_selenium.png", "tcpdump.png", "wireshark_conversations_api.png",
+                       "wireshark_conversations.png", "wireshark_protocols.png", "ufw.png"]
+           if not (SHOTS / p).exists()]
 print(f"Saved {OUT.relative_to(PROJECT)}")
 if missing:
     print(f"{len(missing)} screenshot placeholders (add them to network/screenshots/): {', '.join(missing)}")
