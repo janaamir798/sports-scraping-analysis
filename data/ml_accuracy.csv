@@ -1,0 +1,4 @@
+model,accuracy,accuracy_%
+Logistic Regression,0.59,59.0
+Random Forest,0.54,54.0
+Baseline (always home win),0.46,46.0

@@ -1,0 +1,4 @@
+model,away_goals,home_goals,average
+Linear Regression,0.937,1.087,1.012
+Random Forest,0.975,1.137,1.056
+Baseline (average),1.04,1.154,1.097
