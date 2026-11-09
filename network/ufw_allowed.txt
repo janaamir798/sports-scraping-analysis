@@ -1,0 +1,8 @@
+### ufw rule removed
+Round  1: 10 matches
+Round  2: 10 matches
+TEST MODE: collected 20 matches from 2 rounds (nothing saved)
+
+real	0m4.542s
+user	0m0.139s
+sys	0m0.031s

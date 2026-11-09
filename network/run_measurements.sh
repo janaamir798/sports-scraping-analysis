@@ -3,8 +3,9 @@
 # Network measurements for the three scraping methods + a ufw firewall test.
 #
 # Run it as your normal user (NOT with sudo in front), from the project folder:
-#     bash network/run_measurements.sh
-# It asks for your sudo password once (needed for tcpdump and ufw).
+#     bash network/run_measurements.sh                  (all steps)
+#     bash network/run_measurements.sh bs4 selenium ufw (only some steps)
+# Steps: api, bs4, selenium, ufw. It asks for your sudo password once (tcpdump and ufw).
 #
 # For each method (api, bs4, selenium) it:
 #   1. starts tcpdump on ports 80/443        -> network/<method>.pcap
@@ -20,6 +21,8 @@ cd "$(dirname "$0")/.." || exit 1        # always work from the project folder
 PY=".venv/bin/python"
 NET="network"
 IFACE="eth0"                             # WSL2's network interface
+STEPS=" ${*:-api bs4 selenium ufw} "     # steps given on the command line, or all of them
+want() { [[ "$STEPS" == *" $1 "* ]]; }   # is this step selected?
 
 TCPDUMP_RUNNING=0
 SS_PID=""
@@ -75,6 +78,7 @@ measure() {
     #    -U writes packets immediately, -Z $USER makes the .pcap file owned by you.
     sudo tcpdump -i "$IFACE" -n -U -Z "$USER" -w "$pcap" 'tcp port 80 or tcp port 443' \
         > "$NET/${method}_tcpdump_log.txt" 2>&1 &
+    local tcpdump_pid=$!
     TCPDUMP_RUNNING=1
     sleep 2                                  # give tcpdump time to start
 
@@ -106,7 +110,9 @@ measure() {
     kill "$SS_PID" 2>/dev/null; SS_PID=""
     sleep 2                                  # catch the last packets (connection closing)
     sudo pkill -INT -x tcpdump
-    wait 2>/dev/null
+    # Wait only for tcpdump to finish writing. (A plain `wait` would also wait for the
+    # sudo keep-alive loop, which never ends -> the script would hang here.)
+    wait "$tcpdump_pid" 2>/dev/null
     TCPDUMP_RUNNING=0
 
     local packets
@@ -119,11 +125,12 @@ measure() {
     pause "Done with $method."
 }
 
-measure api      scraper_api.py
-measure bs4      scraper_bs4.py
-measure selenium scraper_selenium.py
+want api      && measure api      scraper_api.py
+want bs4      && measure bs4      scraper_bs4.py
+want selenium && measure selenium scraper_selenium.py
 
 # ---------- ufw firewall test ----------
+if want ufw; then
 banner "UFW FIREWALL TEST: block outgoing HTTPS (port 443)"
 sudo ufw status | grep -q "Status: active" && UFW_WAS_ACTIVE=1 || UFW_WAS_ACTIVE=0
 sudo ufw --force enable
@@ -149,6 +156,7 @@ echo "Rule removed. Running the API scraper again (2 test rounds)..."
   ( time "$PY" -u scrapers/scraper_api.py --test-rounds 2 ) 2>&1
 } | tee "$NET/ufw_allowed.txt"
 screenshot "the successful API run above"
+fi
 
 banner "ALL DONE"
 echo "Files in $NET/:"

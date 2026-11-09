@@ -1,0 +1,15 @@
+Page 1: 380 matches
+  The browser made 60 requests for this page
+Saved 380 matches to data/matches_selenium.csv
+
+Metrics:
+  method          selenium
+  total_time_s    37.66
+  num_requests    60
+  bandwidth_kb    1686.4
+  avg_latency_ms  293.0
+  rows_collected  380
+
+real	0m37.986s
+user	0m14.638s
+sys	0m11.587s

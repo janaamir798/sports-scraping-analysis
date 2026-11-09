@@ -1,0 +1,5 @@
+=== 15:43:01.514 ===
+Netid Recv-Q Send-Q Local Address:Port Peer Address:PortProcess
+=== 15:43:02.352 ===
+Netid Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                          
+tcp   0      0      172.30.29.164:34122 172.67.72.25:443  users:(("python",pid=5454,fd=3))

@@ -1,0 +1,55 @@
+Round  1: 10 matches
+Round  2: 10 matches
+Round  3: 10 matches
+Round  4: 10 matches
+Round  5: 10 matches
+Round  6: 10 matches
+Round  7: 10 matches
+Round  8: 10 matches
+Round  9: 10 matches
+Round 10: 10 matches
+  Request failed (attempt 1): 429 Client Error: Too Many Requests for url: https://www.thesportsdb.com/api/v1/json/123/eventsround.php?id=4328&r=11&s=2023-2024
+Round 11: 10 matches
+Round 12: 10 matches
+Round 13: 10 matches
+Round 14: 10 matches
+Round 15: 10 matches
+Round 16: 10 matches
+Round 17: 10 matches
+Round 18: 10 matches
+Round 19: 10 matches
+Round 20: 10 matches
+Round 21: 10 matches
+Round 22: 10 matches
+Round 23: 10 matches
+  Request failed (attempt 1): 429 Client Error: Too Many Requests for url: https://www.thesportsdb.com/api/v1/json/123/eventsround.php?id=4328&r=24&s=2023-2024
+Round 24: 10 matches
+Round 25: 10 matches
+Round 26: 10 matches
+Round 27: 10 matches
+Round 28: 10 matches
+Round 29: 10 matches
+Round 30: 10 matches
+Round 31: 10 matches
+Round 32: 10 matches
+Round 33: 10 matches
+Round 34: 10 matches
+Round 35: 10 matches
+Round 36: 10 matches
+Round 37: 10 matches
+  Request failed (attempt 1): 429 Client Error: Too Many Requests for url: https://www.thesportsdb.com/api/v1/json/123/eventsround.php?id=4328&r=38&s=2023-2024
+Round 38: 10 matches
+Saved 380 matches to data/matches_api.csv
+
+Metrics:
+  method          api
+  total_time_s    516.57
+  num_requests    41
+  bandwidth_kb    668.3
+  avg_latency_ms  134.8
+  rows_collected  380
+  (3 request attempts failed)
+
+real	8m36.715s
+user	0m0.295s
+sys	0m0.049s

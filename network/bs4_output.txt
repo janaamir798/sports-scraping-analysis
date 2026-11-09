@@ -1,0 +1,14 @@
+Page 1: 380 matches
+Saved 380 matches to data/matches_bs4.csv
+
+Metrics:
+  method          bs4
+  total_time_s    0.53
+  num_requests    1
+  bandwidth_kb    1040.3
+  avg_latency_ms  237.9
+  rows_collected  380
+
+real	0m0.929s
+user	0m0.499s
+sys	0m0.074s

@@ -1,0 +1,18 @@
+### ufw rule active: reject out 443/tcp
+  Request failed (attempt 1): HTTPSConnectionPool(host='www.thesportsdb.com', port=443): Max retries exceeded with url: /api/v1/json/123/eventsround.php?id=4328&r=1&s=2023-2024 (Caused by NewConnectionError("HTTPSConnection(host='www.thesportsdb.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable"))
+  Request failed (attempt 2): HTTPSConnectionPool(host='www.thesportsdb.com', port=443): Max retries exceeded with url: /api/v1/json/123/eventsround.php?id=4328&r=1&s=2023-2024 (Caused by NewConnectionError("HTTPSConnection(host='www.thesportsdb.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable"))
+  Request failed (attempt 3): HTTPSConnectionPool(host='www.thesportsdb.com', port=443): Max retries exceeded with url: /api/v1/json/123/eventsround.php?id=4328&r=1&s=2023-2024 (Caused by NewConnectionError("HTTPSConnection(host='www.thesportsdb.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable"))
+  Request failed (attempt 4): HTTPSConnectionPool(host='www.thesportsdb.com', port=443): Max retries exceeded with url: /api/v1/json/123/eventsround.php?id=4328&r=1&s=2023-2024 (Caused by NewConnectionError("HTTPSConnection(host='www.thesportsdb.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable"))
+  Request failed (attempt 5): HTTPSConnectionPool(host='www.thesportsdb.com', port=443): Max retries exceeded with url: /api/v1/json/123/eventsround.php?id=4328&r=1&s=2023-2024 (Caused by NewConnectionError("HTTPSConnection(host='www.thesportsdb.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable"))
+Round  1: 0 matches
+  Request failed (attempt 1): HTTPSConnectionPool(host='www.thesportsdb.com', port=443): Max retries exceeded with url: /api/v1/json/123/eventsround.php?id=4328&r=2&s=2023-2024 (Caused by NewConnectionError("HTTPSConnection(host='www.thesportsdb.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable"))
+  Request failed (attempt 2): HTTPSConnectionPool(host='www.thesportsdb.com', port=443): Max retries exceeded with url: /api/v1/json/123/eventsround.php?id=4328&r=2&s=2023-2024 (Caused by NewConnectionError("HTTPSConnection(host='www.thesportsdb.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable"))
+  Request failed (attempt 3): HTTPSConnectionPool(host='www.thesportsdb.com', port=443): Max retries exceeded with url: /api/v1/json/123/eventsround.php?id=4328&r=2&s=2023-2024 (Caused by NewConnectionError("HTTPSConnection(host='www.thesportsdb.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable"))
+  Request failed (attempt 4): HTTPSConnectionPool(host='www.thesportsdb.com', port=443): Max retries exceeded with url: /api/v1/json/123/eventsround.php?id=4328&r=2&s=2023-2024 (Caused by NewConnectionError("HTTPSConnection(host='www.thesportsdb.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable"))
+  Request failed (attempt 5): HTTPSConnectionPool(host='www.thesportsdb.com', port=443): Max retries exceeded with url: /api/v1/json/123/eventsround.php?id=4328&r=2&s=2023-2024 (Caused by NewConnectionError("HTTPSConnection(host='www.thesportsdb.com', port=443): Failed to establish a new connection: [Errno 101] Network is unreachable"))
+Round  2: 0 matches
+TEST MODE: collected 0 matches from 2 rounds (nothing saved)
+
+real	0m44.484s
+user	0m0.139s
+sys	0m0.044s
