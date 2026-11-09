@@ -1,0 +1,4 @@
+,packets,total_kb,servers_ip,tcp_connections,domains,duration_s,domain_names
+api,381,184.0,1,1,1,516.6,www.thesportsdb.com
+bs4,38,35.7,1,1,1,0.5,www.thesportsdb.com
+selenium,4297,7934.6,12,24,12,37.5,accounts.google.com content-autofill.googleapis.com googlechromelabs.github.io optimizationguide-pa.googleapis.com plausible.io r2.thesportsdb.com static.cloudflareinsights.com update.googleapis.com www.google.com www.google.com.lb www.googletagmanager.com www.thesportsdb.com

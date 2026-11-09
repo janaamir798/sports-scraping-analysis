@@ -12,6 +12,7 @@ and appends one row per run to data/metrics.csv.
 """
 
 import csv
+import threading
 import time
 from pathlib import Path
 
@@ -42,12 +43,16 @@ class Metrics:
         self.total_bytes = 0
         self.latencies_ms = []
         self.start_time = time.perf_counter()   # the clock starts when the object is created
+        # A lock so that several threads (threaded scraper) never update the counters
+        # at the same moment, which could lose a count.
+        self.lock = threading.Lock()
 
     def record(self, num_bytes, latency_ms):
         """Record one request. Selenium calls this directly; API/bs4 use get() below."""
-        self.num_requests += 1
-        self.total_bytes += num_bytes
-        self.latencies_ms.append(latency_ms)
+        with self.lock:
+            self.num_requests += 1
+            self.total_bytes += num_bytes
+            self.latencies_ms.append(latency_ms)
 
     def get(self, session, url, timeout=30, retries=4, retry_wait_s=5):
         """
@@ -75,7 +80,8 @@ class Metrics:
 
             if ok:
                 return response
-            self.failed_requests += 1
+            with self.lock:
+                self.failed_requests += 1
             if attempt <= retries:
                 wait_s = retry_wait_s
                 # Rate limited: respect the server's Retry-After value (in seconds) + 1s margin
