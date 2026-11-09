@@ -6,8 +6,10 @@ free key, so we ask for one round at a time instead (eventsround.php):
 38 rounds x 10 matches = 380 matches.
 
 Run from the project folder:  python scrapers/scraper_api.py
+Quick test (2 rounds, saves nothing):  python scrapers/scraper_api.py --test-rounds 2
 """
 
+import argparse
 import time
 
 from metrics import Metrics, make_session, match_result, save_matches
@@ -42,11 +44,19 @@ def parse_event(event):
 
 
 def main():
+    # Optional test mode (used by the ufw firewall test): only a few rounds, and
+    # nothing is saved, so a failed test cannot overwrite the real CSV / metrics.
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--test-rounds", type=int, default=0,
+                        help="only scrape this many rounds and do not save anything")
+    args = parser.parse_args()
+    num_rounds = args.test_rounds or NUM_ROUNDS
+
     metrics = Metrics("api")        # starts the timer
     session = make_session()
     matches = []
 
-    for round_number in range(1, NUM_ROUNDS + 1):
+    for round_number in range(1, num_rounds + 1):
         url = f"{BASE_URL}/eventsround.php?id={LEAGUE_ID}&r={round_number}&s={SEASON}"
         response = metrics.get(session, url)
 
@@ -64,8 +74,12 @@ def main():
         print(f"Round {round_number:2}: {len(events)} matches")
 
         # Rate limiting: wait before the next request (no need after the last one)
-        if round_number < NUM_ROUNDS:
+        if round_number < num_rounds:
             time.sleep(DELAY_S)
+
+    if args.test_rounds:
+        print(f"TEST MODE: collected {len(matches)} matches from {num_rounds} rounds (nothing saved)")
+        return
 
     save_matches(matches, "matches_api.csv")
     metrics.save(rows_collected=len(matches))
